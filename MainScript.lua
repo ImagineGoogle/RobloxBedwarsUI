@@ -273,13 +273,12 @@ local function CreateTeam(name, team)
 
     GuiObjects.BedWarsUI.Scoreboard.Size = GuiObjects.BedWarsUI.Scoreboard.Size + UDim2.new(0, 0, 0, 26)
 
-    if lplr.TeamColor.Color == OneLetterLabel.TextColor3 then
-        YOU.Visible = true
-    end
-
     task.spawn(function()
         local function updateBoard()
-            
+            if lplr.TeamColor.Color == OneLetterLabel.TextColor3 then
+                YOU.Visible = true
+            end
+
             local teamplrs = 0
             local teamnobed = 0
     
