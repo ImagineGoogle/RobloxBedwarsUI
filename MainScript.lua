@@ -380,12 +380,6 @@ local function addPlayer(player)
     OneLetterLabel.Position = UDim2.new(0.055555556, 0, 0, 0)
     OneLetterLabel.Size = UDim2.new(-0.0166666675, 39, 1, 0)
     OneLetterLabel.Font = Enum.Font.SourceSans
-    if player.Team and player.Team.Name ~= "Spectators" then
-        OneLetterLabel.Text = string.sub(player.Team.Name, 1, 1) or ""
-    else
-        OneLetterLabel.Text = ""
-    end
-    OneLetterLabel.TextColor3 = Color3.fromRGB(0, 187, 255)
     OneLetterLabel.TextSize = 31.000
     --OneLetterLabel.AutomaticSize = Enum.AutomaticSize.X
 
@@ -426,6 +420,14 @@ local function addPlayer(player)
                     BedStatus.TextColor3 = Color3.fromRGB(63, 255, 53)
                 end
             end
+
+            if player.Team and player.Team.Name ~= "Spectators" then
+                OneLetterLabel.Text = string.sub(player.Team.Name, 1, 1) or ""
+                OneLetterLabel.TextColor3 = player.TeamColor.Color
+            else
+                OneLetterLabel.Text = ""
+            end
+
             task.wait()
         end
     end)
