@@ -122,7 +122,7 @@ local function CreateMainWindow()
     Date.Position = UDim2.new(0, 0, 0.0746753365, 0)
     Date.Size = UDim2.new(0.440171152, 0, 1, 0)
     Date.Font = Enum.Font.SourceSans
-    Date.Text = "09/04/22"
+    Date.Text = "MM/DD/YY"
     Date.TextColor3 = Color3.fromRGB(173, 173, 173)
     Date.TextSize = 27.000
     Date.TextWrapped = true
@@ -152,26 +152,28 @@ local function CreateMainWindow()
     NextEventTimer.Parent = NextEventFrame
     NextEventTimer.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     NextEventTimer.BackgroundTransparency = 1.000
-    NextEventTimer.Position = UDim2.new(0.693462729, 0, 0, 0)
-    NextEventTimer.Size = UDim2.new(0.30653733, 0, 1, 0)
+    NextEventTimer.Position = UDim2.new(0.266, 0,0, 0)
+    NextEventTimer.Size = UDim2.new(0.135, 0,1, 0)
     NextEventTimer.Font = Enum.Font.SourceSans
-    NextEventTimer.Text = " 1:00"
+    NextEventTimer.Text = "00:00"
     NextEventTimer.TextColor3 = Color3.fromRGB(63, 255, 53)
     NextEventTimer.TextSize = 27.000
     NextEventTimer.TextXAlignment = Enum.TextXAlignment.Left
     NextEventTimer.TextYAlignment = Enum.TextYAlignment.Bottom
+    NextEventTimer.AutomaticSize = Enum.AutomaticSize.X
 
     NextEvent.Name = "NextEvent"
     NextEvent.Parent = NextEventFrame
     NextEvent.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     NextEvent.BackgroundTransparency = 1.000
-    NextEvent.Size = UDim2.new(0.645299137, 0, 1, 0)
+    NextEvent.Size = UDim2.new(0, 1, 1, 0)
     NextEvent.Font = Enum.Font.SourceSans
-    NextEvent.Text = "Sudden Death in"
+    NextEvent.Text = "Time : "
     NextEvent.TextColor3 = Color3.fromRGB(255, 255, 255)
     NextEvent.TextSize = 27.000
     NextEvent.TextXAlignment = Enum.TextXAlignment.Left
     NextEvent.TextYAlignment = Enum.TextYAlignment.Bottom
+    NextEvent.AutomaticSize = Enum.AutomaticSize.X
 end
 
 local function CreateTeamsFrame()
@@ -452,6 +454,11 @@ for i, v in pairs(game:GetService("Players"):GetPlayers()) do
     addPlayer(v)
 end
 
+local dt = DateTime.now()
+local DateLabel = GuiObjects.BedWarsUI.Scoreboard.MainObjects.GameInfoFrame.Date
+DateLabel.Text = dt:FormatLocalTime("L", "en-us")
+DateLabel.Text = string.sub(DateLabel.Text, 1, string.len(DateLabel.Text) -2)
+
 game:GetService("Players").PlayerAdded:Connect(function(player)
     addPlayer(player)
 end)
@@ -473,4 +480,3 @@ UIS.InputEnded:Connect(function(input, gameProcessedEvent)
         GuiObjects.BedWarsUI.TabList.Visible = false
     end
 end)
-
