@@ -417,6 +417,10 @@ local function addPlayer(player)
 
     task.spawn(function()
         while true do
+            if player == nil then
+                Player:Destroy()
+                break
+            end
             if player:FindFirstChild("leaderstats") and player.leaderstats:FindFirstChild("Bed") then
                 if player.leaderstats.Bed.Value == "❌" then
                     if player.Team and player.Team.Name == "Spectators" then
