@@ -6,8 +6,6 @@ local RunService = game:GetService("RunService")
 local UIS = game:GetService("UserInputService")
 local GuiObjects = {}
 
-lplr.CharacterAdded:Wait()
-
 game:GetService("StarterGui"):SetCoreGuiEnabled("PlayerList",  false)
 
 local function CreateMainWindow()
@@ -500,10 +498,10 @@ task.spawn(function() --refresh tablist
     end
 end)
 
-task.spawn(function()
+task.spawn(function() --timer
 
     pcall(function()
-        repeat task.wait() until lplr.Character.PrimaryPart.Position.Y <= 140 or game.Workspace:FindFirstChild("spawn_cage")
+        repeat task.wait() until (lplr.Character) and  lplr.Character.PrimaryPart.Position.Y <= 140 or game.Workspace:FindFirstChild("spawn_cage")
 
         local eventTimer = GuiObjects.BedWarsUI.Scoreboard.MainObjects.NextEventFrame.NextEventTimer
 
