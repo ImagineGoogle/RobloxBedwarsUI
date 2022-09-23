@@ -470,7 +470,7 @@ task.spawn(function()
         if v.Name ~= "Spectators" and v.Name ~= "Neutral" then
             CreateTeam(v.Name, v)
         end
-        task.wait(0.1)
+        
         for i2, v2 in pairs(v:GetPlayers()) do
             addPlayer(v2)
         end
