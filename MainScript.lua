@@ -396,7 +396,7 @@ local function addPlayer(player)
     Name.Position = UDim2.new(0.111111112, 0, 0, 0)
     Name.Size = UDim2.new(0, 1, 1, 0)
     Name.Font = Enum.Font.SourceSans
-    Name.Text = player.Name
+    Name.Text = player.DisplayName
     Name.TextColor3 = Color3.fromRGB(255, 255, 255)
     Name.TextSize = 31.000
     Name.AutomaticSize = Enum.AutomaticSize.X
