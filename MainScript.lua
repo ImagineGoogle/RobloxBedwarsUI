@@ -411,7 +411,7 @@ local function addPlayer(player)
 
     task.spawn(function()
         while true do
-            if player.leaderstats:FindFirstChild("Bed") then
+            if player:FindFirstChild("leaderstats") and player.leaderstats:FindFirstChild("Bed") then
                 if player.leaderstats.Bed.Value == "❌" then
                     BedStatus.Text = " x"
                     BedStatus.TextColor3 = Color3.fromRGB(255, 0, 0)
