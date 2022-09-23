@@ -438,9 +438,11 @@ local function addPlayer(player)
             elseif (player.Team and player.Team.Name == "Spectators") or (player.Team == nil) then
                 OneLetterLabel.Text = ""
                 BedStatus.Text = ""
-                if game.PlaceId ~= 6872265039 then
-                    Player:Destroy()
-                    break
+                if game.PlaceId ~= 6872265039 and player:FindFirstChild("leaderstats") then
+                    if player.leaderstats.Bed.Value == "❌" then
+                        Player:Destroy()
+                        break
+                    end
                 end
             else
                 OneLetterLabel.Text = ""
