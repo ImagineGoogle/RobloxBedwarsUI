@@ -417,8 +417,13 @@ local function addPlayer(player)
         while true do
             if player:FindFirstChild("leaderstats") and player.leaderstats:FindFirstChild("Bed") then
                 if player.leaderstats.Bed.Value == "❌" then
-                    BedStatus.Text = " x"
-                    BedStatus.TextColor3 = Color3.fromRGB(255, 0, 0)
+                    if player.Team and player.Team.Name == "Spectators" then
+                        OneLetterLabel.Text = ""
+                        BedStatus.Text = ""
+                    else
+                        BedStatus.Text = " x"
+                        BedStatus.TextColor3 = Color3.fromRGB(255, 0, 0)
+                    end
                 else
                     BedStatus.Text = " ✓"
                     BedStatus.TextColor3 = Color3.fromRGB(63, 255, 53)
@@ -428,6 +433,9 @@ local function addPlayer(player)
             if player.Team and player.Team.Name ~= "Spectators" then
                 OneLetterLabel.Text = string.sub(player.Team.Name, 1, 1)
                 OneLetterLabel.TextColor3 = player.TeamColor.Color
+            elseif player.Team and player.Team.Name == "Spectators" then
+                OneLetterLabel.Text = ""
+                BedStatus.Text = ""
             else
                 OneLetterLabel.Text = ""
                 Player.LayoutOrder = 999999999
@@ -464,6 +472,7 @@ DateLabel.Text = string.sub(DateLabel.Text, 1, string.len(DateLabel.Text) -2)
 task.spawn(function()
 
     pcall(function()
+        lplr.CharacterAdded:Wait()
         repeat task.wait() until lplr.Character.PrimaryPart.Position.Y <= 140 or game.Workspace:FindFirstChild("spawn_cage")
 
         local eventTimer = GuiObjects.BedWarsUI.Scoreboard.MainObjects.NextEventFrame.NextEventTimer
