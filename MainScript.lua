@@ -426,7 +426,7 @@ local function addPlayer(player)
                 OneLetterLabel.TextColor3 = player.TeamColor.Color
             else
                 OneLetterLabel.Text = ""
-                Player.DisplayOrder = 99999999
+                Player.LayoutOrder = 999999999
             end
 
             task.wait()
