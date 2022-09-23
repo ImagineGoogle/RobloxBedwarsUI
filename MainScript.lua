@@ -46,11 +46,11 @@ local function CreateMainWindow()
 
     TabList.Name = "TabList"
     TabList.Parent = BedWarsUI
-    TabList.AnchorPoint = Vector2.new(0.5, 0.5)
+    TabList.AnchorPoint = Vector2.new(0.5, 0)
     TabList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     TabList.BackgroundTransparency = 1.000
     TabList.BorderSizePixel = 0
-    TabList.Position = UDim2.new(0.5, 0, 0.0299999993, 0)
+    TabList.Position = UDim2.new(0.5, 0, 0, 10)
     TabList.Size = UDim2.new(0, 540, 0, 30)
     TabList.Visible = false
 
@@ -358,7 +358,7 @@ local function addPlayer(player)
     UIListLayout.SortOrder = Enum.SortOrder.Name
     UIListLayout.FillDirection = Enum.FillDirection.Horizontal
     
-    Player.Name = player.Name
+    Player.Name = player.DisplayName
     Player.Parent = GuiObjects.TabList
     Player.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     Player.BackgroundTransparency = 0.500
