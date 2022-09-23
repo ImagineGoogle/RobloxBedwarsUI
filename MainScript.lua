@@ -501,7 +501,10 @@ end)
 task.spawn(function() --timer
 
     pcall(function()
-        repeat task.wait() until (lplr.Character) and  lplr.Character.PrimaryPart.Position.Y <= 140 or game.Workspace:FindFirstChild("spawn_cage")
+        if not lplr.Character then
+            lplr.CharacterAdded:Wait()
+        end
+        repeat task.wait() until lplr.Character.PrimaryPart.Position.Y <= 140 or game.Workspace:FindFirstChild("spawn_cage")
 
         local eventTimer = GuiObjects.BedWarsUI.Scoreboard.MainObjects.NextEventFrame.NextEventTimer
 
@@ -562,4 +565,3 @@ UIS.InputEnded:Connect(function(input, gameProcessedEvent)
         GuiObjects.BedWarsUI.TabList.Visible = false
     end
 end)
-
