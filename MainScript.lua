@@ -1,5 +1,4 @@
 repeat task.wait() until game:IsLoaded()
-task.wait(0.2)
 
 local lplr = game:GetService("Players").LocalPlayer
 local TeamsService = game:GetService("Teams")
@@ -7,9 +6,9 @@ local RunService = game:GetService("RunService")
 local UIS = game:GetService("UserInputService")
 local GuiObjects = {}
 
-game:GetService("StarterGui"):SetCoreGuiEnabled("PlayerList",  false)
-
 lplr.CharacterAdded:Wait()
+
+game:GetService("StarterGui"):SetCoreGuiEnabled("PlayerList",  false)
 
 local function CreateMainWindow()
 
