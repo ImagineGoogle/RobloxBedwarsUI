@@ -461,6 +461,40 @@ local DateLabel = GuiObjects.BedWarsUI.Scoreboard.MainObjects.GameInfoFrame.Date
 DateLabel.Text = dt:FormatLocalTime("L", "en-us")
 DateLabel.Text = string.sub(DateLabel.Text, 1, string.len(DateLabel.Text) -2)
 
+task.spawn(function()
+
+    pcall(function()
+        repeat task.wait() until lplr.Character.PrimaryPart.Position.Y <= 140 or game.Workspace:FindFirstChild("spawn_cage")
+
+        local eventTimer = GuiObjects.BedWarsUI.Scoreboard.MainObjects.NextEventFrame.NextEventTimer
+
+        local minutes = 0
+        local seconds = 0
+
+        while true do
+            task.wait(1)
+            seconds += 1
+            if seconds == 60 then
+                seconds = 0
+                minutes += 1
+            end
+            if string.len(tostring(minutes)) <= 1 then
+                if string.len(tostring(seconds)) <= 1 then
+                    eventTimer.Text = "0" .. tostring(minutes) .. ":0".. tostring(seconds)
+                else
+                    eventTimer.Text = "0" .. tostring(minutes) .. ":".. tostring(seconds)
+                end
+            else
+                if string.len(tostring(seconds)) <= 1 then
+                    eventTimer.Text = tostring(minutes) .. ":0".. tostring(seconds)
+                else
+                    eventTimer.Text = tostring(minutes) .. ":".. tostring(seconds)
+                end
+            end
+        end
+    end)
+end)
+
 game:GetService("Players").PlayerAdded:Connect(function(player)
     addPlayer(player)
 end)
