@@ -345,12 +345,6 @@ CreateTeamsFrame()
 
 print(GuiObjects.TabList.Name)
 
-for i, v in ipairs(TeamsService:GetTeams()) do
-    if v.Name ~= "Spectators" and v.Name ~= "Neutral" then
-        CreateTeam(v.Name, v)
-    end
-end
-
 local function addPlayer(player)
     local Player = Instance.new("Frame")
     local ImageLabel = Instance.new("ImageLabel")
@@ -471,9 +465,17 @@ _G.DeleteUI = function()
 	GuiObjects.BedWarsUI:Destroy()
 end
 
-for i, v in pairs(game:GetService("Players"):GetPlayers()) do
-    addPlayer(v)
-end
+task.spawn(function()
+    for i, v in ipairs(TeamsService:GetTeams()) do
+        if v.Name ~= "Spectators" and v.Name ~= "Neutral" then
+            CreateTeam(v.Name, v)
+        end
+        task.wait(0.1)
+        for i2, v2 in pairs(v:GetPlayers()) do
+            addPlayer(v2)
+        end
+    end
+end)
 
 local dt = DateTime.now()
 local DateLabel = GuiObjects.BedWarsUI.Scoreboard.MainObjects.GameInfoFrame.Date
