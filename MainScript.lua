@@ -358,7 +358,7 @@ local function addPlayer(player)
     UIListLayout.SortOrder = Enum.SortOrder.Name
     UIListLayout.FillDirection = Enum.FillDirection.Horizontal
     
-    Player.Name = player.DisplayName
+    Player.Name = player.Name
     Player.Parent = GuiObjects.TabList
     Player.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     Player.BackgroundTransparency = 0.500
@@ -422,7 +422,7 @@ local function addPlayer(player)
             end
 
             if player.Team and player.Team.Name ~= "Spectators" then
-                OneLetterLabel.Text = string.sub(player.Team.Name, 1, 1) or ""
+                OneLetterLabel.Text = string.sub(player.Team.Name, 1, 1)
                 OneLetterLabel.TextColor3 = player.TeamColor.Color
             else
                 OneLetterLabel.Text = ""
