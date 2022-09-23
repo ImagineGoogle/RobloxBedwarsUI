@@ -1,12 +1,13 @@
 repeat task.wait() until game:IsLoaded()
 task.wait(0.2)
 
-local LocalizationService = game:GetService("LocalizationService")
 local lplr = game:GetService("Players").LocalPlayer
-local ServerStorage = game:GetService("ServerStorage")
 local TeamsService = game:GetService("Teams")
 local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
 local GuiObjects = {}
+
+game:GetService("StarterGui"):SetCoreGuiEnabled("PlayerList",  false)
 
 local function CreateMainWindow()
 
@@ -23,7 +24,9 @@ local function CreateMainWindow()
     local NextEventTimer = Instance.new("TextLabel")
     local NextEvent = Instance.new("TextLabel")
 
-    GuiObjects.BedWarsUI = BedWarsUI
+    local TabList = Instance.new("Frame")
+    local UIListLayout_2 = Instance.new("UIListLayout")
+
 
     --Properties:
 
@@ -40,6 +43,22 @@ local function CreateMainWindow()
     else
         BedWarsUI.Parent = game:GetService("CoreGui")
     end
+
+    TabList.Name = "TabList"
+    TabList.Parent = BedWarsUI
+    TabList.AnchorPoint = Vector2.new(0.5, 0.5)
+    TabList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TabList.BackgroundTransparency = 1.000
+    TabList.BorderSizePixel = 0
+    TabList.Position = UDim2.new(0.5, 0, 0.0299999993, 0)
+    TabList.Size = UDim2.new(0, 540, 0, 30)
+    TabList.Visible = false
+
+    UIListLayout_2.Parent = TabList
+    UIListLayout_2.SortOrder = Enum.SortOrder.Name
+
+    GuiObjects.BedWarsUI = BedWarsUI
+    GuiObjects.TabList = TabList
 
     Scoreboard.Name = "Scoreboard"
     Scoreboard.Parent = BedWarsUI
@@ -312,12 +331,14 @@ local function CreateTeam(name, team)
             end
         end
     
-        game:GetService("RunService").RenderStepped:Connect(updateBoard)
+        RunService.RenderStepped:Connect(updateBoard)
     end)
 end
 
 CreateMainWindow()
 CreateTeamsFrame()
+
+print(GuiObjects.TabList.Name)
 
 for i, v in ipairs(TeamsService:GetTeams()) do
     if v.Name ~= "Spectators" and v.Name ~= "Neutral" then
@@ -325,6 +346,126 @@ for i, v in ipairs(TeamsService:GetTeams()) do
     end
 end
 
+local function addPlayer(player)
+    local Player = Instance.new("Frame")
+    local ImageLabel = Instance.new("ImageLabel")
+    local OneLetterLabel = Instance.new("TextLabel")
+    local Name = Instance.new("TextLabel")
+    local BedStatus = Instance.new("TextLabel")
+    local UIListLayout = Instance.new("UIListLayout")
+
+    UIListLayout.Parent = Player
+    UIListLayout.SortOrder = Enum.SortOrder.Name
+    UIListLayout.FillDirection = Enum.FillDirection.Horizontal
+    
+    Player.Name = player.Name
+    Player.Parent = GuiObjects.TabList
+    Player.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    Player.BackgroundTransparency = 0.500
+    Player.BorderSizePixel = 0
+    Player.Size = UDim2.new(1, 0, 0, 30)
+
+    ImageLabel.Parent = Player
+    ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ImageLabel.BackgroundTransparency = 1.000
+    ImageLabel.BorderSizePixel = 0
+    ImageLabel.Size = UDim2.new(-0.0166666675, 39, 1, 0)
+    ImageLabel.Image = game:GetService("Players"):GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
+    ImageLabel.Name = "!!!!ImageLabel"
+
+    OneLetterLabel.Name = "!!!OneLetterLabel"
+    OneLetterLabel.Parent = Player
+    OneLetterLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    OneLetterLabel.BackgroundTransparency = 1.000
+    OneLetterLabel.Position = UDim2.new(0.055555556, 0, 0, 0)
+    OneLetterLabel.Size = UDim2.new(-0.0166666675, 39, 1, 0)
+    OneLetterLabel.Font = Enum.Font.SourceSans
+    if player.Team.Name ~= "Spectators" then
+        OneLetterLabel.Text = string.sub(player.Team.Name, 1, 1) or ""
+    else
+        OneLetterLabel.Text = ""
+    end
+    OneLetterLabel.TextColor3 = Color3.fromRGB(0, 187, 255)
+    OneLetterLabel.TextSize = 31.000
+    --OneLetterLabel.AutomaticSize = Enum.AutomaticSize.X
+
+    Name.Name = "!!" .. player.DisplayName
+    Name.Parent = Player
+    Name.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Name.BackgroundTransparency = 1.000
+    Name.Position = UDim2.new(0.111111112, 0, 0, 0)
+    Name.Size = UDim2.new(0.142592594, 39, 1, 0)
+    Name.Font = Enum.Font.SourceSans
+    Name.Text = player.Name
+    Name.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Name.TextSize = 31.000
+    Name.AutomaticSize = Enum.AutomaticSize.X
+
+    BedStatus.Name = "!Bedstats"
+    BedStatus.Parent = Player
+    BedStatus.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    BedStatus.BackgroundTransparency = 1.000
+    BedStatus.Position = UDim2.new(0.111111112, 0, 0, 0)
+    BedStatus.Size = UDim2.new(0.142592594, 39, 1, 0)
+    BedStatus.Font = Enum.Font.SourceSans
+    BedStatus.Text = "✓"
+    BedStatus.TextColor3 = Color3.fromRGB(63, 255, 53)
+    BedStatus.TextSize = 31.000
+    BedStatus.AutomaticSize = Enum.AutomaticSize.X
+
+    task.spawn(function()
+        while true do
+            if player.leaderstats:FindFirstChild("Bed") then
+                if player.leaderstats.Bed.Value == "❌" then
+                    BedStatus.Text = "x"
+                    BedStatus.TextColor3 = Color3.fromRGB(255, 0, 0)
+                else
+                    BedStatus.Text = "✓"
+                    BedStatus.TextColor3 = Color3.fromRGB(63, 255, 53)
+                end
+            end
+            task.wait()
+        end
+    end)
+end
+
+local function removePlayer(player)
+    for i, v in pairs(GuiObjects.TabList:GetChildren()) do
+        if v:IsA("Frame") then
+            if v.Name == player.Name then
+                v:Destroy()
+            end
+        end
+    end
+end
+
 _G.DeleteUI = function()
 	GuiObjects.BedWarsUI:Destroy()
 end
+
+for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+    addPlayer(v)
+end
+
+game:GetService("Players").PlayerAdded:Connect(function(player)
+    addPlayer(player)
+end)
+
+game:GetService("Players").PlayerRemoving:Connect(function(player)
+    removePlayer(player)
+end)
+
+UIS.InputBegan:Connect(function(input, gameProcessedEvent)
+    if gameProcessedEvent then return end
+    if input.KeyCode == Enum.KeyCode.Tab then
+        GuiObjects.BedWarsUI.TabList.Visible = true
+    end
+end)
+
+UIS.InputEnded:Connect(function(input, gameProcessedEvent)
+    if gameProcessedEvent then return end
+    if input.KeyCode == Enum.KeyCode.Tab then
+        GuiObjects.BedWarsUI.TabList.Visible = false
+    end
+end)
+
