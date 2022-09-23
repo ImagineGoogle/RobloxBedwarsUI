@@ -6,7 +6,9 @@ local RunService = game:GetService("RunService")
 local UIS = game:GetService("UserInputService")
 local GuiObjects = {}
 
-game:GetService("StarterGui"):SetCoreGuiEnabled("PlayerList",  false)
+if game.PlaceId ~= 6872265039 then
+    game:GetService("StarterGui"):SetCoreGuiEnabled("PlayerList",  false)
+end
 
 local function CreateMainWindow()
 
