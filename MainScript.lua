@@ -536,16 +536,14 @@ task.spawn(function() --timer
 end)
 
 GuiObjects.TabList:GetPropertyChangedSignal("Visible"):Connect(function()
-    if GuiObjects.TabList.Visible == false then
-        for i, v in pairs(GuiObjects.BedWarsUI.TabList:GetChildren()) do
-            if v:IsA("Frame") then
-                v:Destroy()
-            end
+    for i, v in pairs(GuiObjects.BedWarsUI.TabList:GetChildren()) do
+        if v:IsA("Frame") then
+            v:Destroy()
         end
-        for i, v in ipairs(TeamsService:GetTeams()) do
-            for i2, v2 in pairs(v:GetPlayers()) do
-                addPlayer(v2)
-            end
+    end
+    for i, v in ipairs(TeamsService:GetTeams()) do
+        for i2, v2 in pairs(v:GetPlayers()) do
+            addPlayer(v2)
         end
     end
 end)
