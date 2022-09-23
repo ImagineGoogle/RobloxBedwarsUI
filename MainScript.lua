@@ -298,6 +298,8 @@ local function CreateTeam(name, team)
         local function updateBoard()
             if lplr.TeamColor.Color == OneLetterLabel.TextColor3 then
                 YOU.Visible = true
+            else
+                YOU.Visible = false
             end
 
             local teamplrs = 0
@@ -480,3 +482,4 @@ UIS.InputEnded:Connect(function(input, gameProcessedEvent)
         GuiObjects.BedWarsUI.TabList.Visible = false
     end
 end)
+
