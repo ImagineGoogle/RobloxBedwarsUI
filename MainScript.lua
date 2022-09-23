@@ -54,7 +54,7 @@ local function CreateMainWindow()
     TabList.Visible = false
 
     UIListLayout_2.Parent = TabList
-    UIListLayout_2.SortOrder = Enum.SortOrder.Name
+    --UIListLayout_2.SortOrder = Enum.SortOrder.Name
 
     GuiObjects.BedWarsUI = BedWarsUI
     GuiObjects.TabList = TabList
