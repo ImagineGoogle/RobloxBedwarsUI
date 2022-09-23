@@ -9,6 +9,8 @@ local GuiObjects = {}
 
 game:GetService("StarterGui"):SetCoreGuiEnabled("PlayerList",  false)
 
+lplr.CharacterAdded:Wait()
+
 local function CreateMainWindow()
 
     local BedWarsUI = Instance.new("ScreenGui")
@@ -472,7 +474,6 @@ DateLabel.Text = string.sub(DateLabel.Text, 1, string.len(DateLabel.Text) -2)
 task.spawn(function()
 
     pcall(function()
-        lplr.CharacterAdded:Wait()
         repeat task.wait() until lplr.Character.PrimaryPart.Position.Y <= 140 or game.Workspace:FindFirstChild("spawn_cage")
 
         local eventTimer = GuiObjects.BedWarsUI.Scoreboard.MainObjects.NextEventFrame.NextEventTimer
