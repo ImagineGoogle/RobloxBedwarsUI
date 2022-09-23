@@ -480,23 +480,23 @@ task.spawn(function()
     end
 end)
 
-task.spawn(function() --refresh tablist
-    while true do
-        task.wait(5)
-        if GuiObjects.BedWarsUI.TabList and GuiObjects.BedWarsUI.TabList.Visible == false then
-            for i, v in pairs(GuiObjects.BedWarsUI.TabList:GetChildren()) do
-                if v:IsA("Frame") then
-                    v:Destroy()
-                end
-            end
-            for i, v in ipairs(TeamsService:GetTeams()) do
-                for i2, v2 in pairs(v:GetPlayers()) do
-                    addPlayer(v2)
-                end
-            end
-        end
-    end
-end)
+-- task.spawn(function() --refresh tablist
+--     while true do
+--         task.wait(5)
+--         if GuiObjects.BedWarsUI.TabList and GuiObjects.BedWarsUI.TabList.Visible == false then
+--             for i, v in pairs(GuiObjects.BedWarsUI.TabList:GetChildren()) do
+--                 if v:IsA("Frame") then
+--                     v:Destroy()
+--                 end
+--             end
+--             for i, v in ipairs(TeamsService:GetTeams()) do
+--                 for i2, v2 in pairs(v:GetPlayers()) do
+--                     addPlayer(v2)
+--                 end
+--             end
+--         end
+--     end
+-- end)
 
 task.spawn(function() --timer
 
