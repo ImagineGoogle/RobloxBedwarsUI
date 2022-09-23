@@ -438,6 +438,10 @@ local function addPlayer(player)
             elseif (player.Team and player.Team.Name == "Spectators") or (player.Team == nil) then
                 OneLetterLabel.Text = ""
                 BedStatus.Text = ""
+                if game.PlaceId ~= 6872265039 then
+                    Player:Destroy()
+                    break
+                end
             else
                 OneLetterLabel.Text = ""
                 Player.LayoutOrder = 999999999
