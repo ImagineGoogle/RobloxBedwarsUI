@@ -380,7 +380,7 @@ local function addPlayer(player)
     OneLetterLabel.Position = UDim2.new(0.055555556, 0, 0, 0)
     OneLetterLabel.Size = UDim2.new(-0.0166666675, 39, 1, 0)
     OneLetterLabel.Font = Enum.Font.SourceSans
-    if player.Team.Name ~= "Spectators" then
+    if player.Team and player.Team.Name ~= "Spectators" then
         OneLetterLabel.Text = string.sub(player.Team.Name, 1, 1) or ""
     else
         OneLetterLabel.Text = ""
@@ -394,12 +394,13 @@ local function addPlayer(player)
     Name.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Name.BackgroundTransparency = 1.000
     Name.Position = UDim2.new(0.111111112, 0, 0, 0)
-    Name.Size = UDim2.new(0.142592594, 39, 1, 0)
+    Name.Size = UDim2.new(0, 1, 1, 0)
     Name.Font = Enum.Font.SourceSans
     Name.Text = player.Name
     Name.TextColor3 = Color3.fromRGB(255, 255, 255)
     Name.TextSize = 31.000
     Name.AutomaticSize = Enum.AutomaticSize.X
+    Name.TextXAlignment = Enum.TextXAlignment.Left
 
     BedStatus.Name = "!Bedstats"
     BedStatus.Parent = Player
@@ -408,19 +409,20 @@ local function addPlayer(player)
     BedStatus.Position = UDim2.new(0.111111112, 0, 0, 0)
     BedStatus.Size = UDim2.new(0.142592594, 39, 1, 0)
     BedStatus.Font = Enum.Font.SourceSans
-    BedStatus.Text = "✓"
+    BedStatus.Text = " ✓"
     BedStatus.TextColor3 = Color3.fromRGB(63, 255, 53)
     BedStatus.TextSize = 31.000
     BedStatus.AutomaticSize = Enum.AutomaticSize.X
+    BedStatus.TextXAlignment = Enum.TextXAlignment.Left
 
     task.spawn(function()
         while true do
             if player.leaderstats:FindFirstChild("Bed") then
                 if player.leaderstats.Bed.Value == "❌" then
-                    BedStatus.Text = "x"
+                    BedStatus.Text = " x"
                     BedStatus.TextColor3 = Color3.fromRGB(255, 0, 0)
                 else
-                    BedStatus.Text = "✓"
+                    BedStatus.Text = " ✓"
                     BedStatus.TextColor3 = Color3.fromRGB(63, 255, 53)
                 end
             end
