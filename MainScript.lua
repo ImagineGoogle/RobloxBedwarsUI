@@ -407,7 +407,7 @@ local function addPlayer(player)
     BedStatus.Position = UDim2.new(0.111111112, 0, 0, 0)
     BedStatus.Size = UDim2.new(0.142592594, 39, 1, 0)
     BedStatus.Font = Enum.Font.SourceSans
-    BedStatus.Text = " ✓"
+    BedStatus.Text = ""
     BedStatus.TextColor3 = Color3.fromRGB(63, 255, 53)
     BedStatus.TextSize = 31.000
     BedStatus.AutomaticSize = Enum.AutomaticSize.X
@@ -433,7 +433,7 @@ local function addPlayer(player)
             if player.Team and player.Team.Name ~= "Spectators" then
                 OneLetterLabel.Text = string.sub(player.Team.Name, 1, 1)
                 OneLetterLabel.TextColor3 = player.TeamColor.Color
-            elseif player.Team and player.Team.Name == "Spectators" then
+            elseif (player.Team and player.Team.Name == "Spectators") or (player.Team == nil) then
                 OneLetterLabel.Text = ""
                 BedStatus.Text = ""
             else
