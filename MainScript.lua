@@ -517,45 +517,28 @@ task.spawn(function() --timer
     end)
 end)
 
-local function removeDupes(tab)
-	local rep = {}
-
-	for index, element in ipairs(tab) do
-		if tab:FindFirstChild(element) ~= nil and tonumber(index) ~= nil then
-			index:Destroy()
-		elseif tab:FindFirstChild(element) ~= nil then
-			tab[index] = nil
-		else
-			rep[#rep + 1] = tab[index]
-		end
-	end
-
-	return tab
-end
-
 GuiObjects.TabList:GetPropertyChangedSignal("Visible"):Connect(function()
     if GuiObjects.TabList.Visible == true then
         for i, v in pairs(game:GetService("Players"):GetPlayers()) do
             if not GuiObjects.TabList:FindFirstChild(v.Name) then
                 addPlayer(v)
-                removeDupes(GuiObjects.TabList:GetChildren())
             end
         end
     end
 end)
 
-game:GetService("Players").PlayerAdded:Connect(function(player)
-    for i, v in pairs(GuiObjects.BedWarsUI.TabList:GetChildren()) do
-        if v:IsA("Frame") then
-            v:Destroy()
-        end
-    end
-    for i, v in ipairs(TeamsService:GetTeams()) do
-        for i2, v2 in pairs(v:GetPlayers()) do
-            addPlayer(v2)
-        end
-    end
-end)
+-- game:GetService("Players").PlayerAdded:Connect(function(player)
+--     for i, v in pairs(GuiObjects.BedWarsUI.TabList:GetChildren()) do
+--         if v:IsA("Frame") then
+--             v:Destroy()
+--         end
+--     end
+--     for i, v in ipairs(TeamsService:GetTeams()) do
+--         for i2, v2 in pairs(v:GetPlayers()) do
+--             addPlayer(v2)
+--         end
+--     end
+-- end)
 
 game:GetService("Players").PlayerRemoving:Connect(function(player)
     removePlayer(player)
