@@ -521,9 +521,9 @@ local function removeDupes(tab)
 	local rep = {}
 
 	for index, element in ipairs(tab) do
-		if table.find(rep, element) ~= nil and tonumber(index) ~= nil then
-			table.remove(tab, index)
-		elseif table.find(rep, element) ~= nil then
+		if tab:FindFirstChild(element) ~= nil and tonumber(index) ~= nil then
+			index:Destroy()
+		elseif tab:FindFirstChild(element) ~= nil then
 			tab[index] = nil
 		else
 			rep[#rep + 1] = tab[index]
