@@ -324,6 +324,7 @@ local function CreateTeam(name, team)
             for _, player in pairs(game:GetService("Players"):GetPlayers()) do
                 if player.Team == team then
                     teamplrs += 1
+                    
                     if player:FindFirstChild("leaderstats") then
                         if player.leaderstats.Bed.Value == "❌" then
                             teamnobed += 1
