@@ -66,6 +66,7 @@ local function CreateMainWindow()
     GuiObjects.TabList = TabList
 
     Scoreboard.Name = "Scoreboard"
+    Scoreboard.Parent = BedWarsUI
     if game.GameId ~= 6872265039 then
         Scoreboard.Visible = false
     end
@@ -75,7 +76,6 @@ local function CreateMainWindow()
     Scoreboard.BorderColor3 = Color3.fromRGB(27, 42, 53)
     Scoreboard.Position = UDim2.new(0.99000001, 0, 0.5, 0)
     Scoreboard.Size = UDim2.new(0, 234, 0, 157)
-    Scoreboard.Parent = BedWarsUI
 
     wwweasygg.Name = "www.easy.gg"
     wwweasygg.Parent = Scoreboard
@@ -324,8 +324,10 @@ local function CreateTeam(name, team)
             for _, player in pairs(game:GetService("Players"):GetPlayers()) do
                 if player.Team == team then
                     teamplrs += 1
-                    if player.leaderstats.Bed.Value == "❌" then
-                        teamnobed += 1
+                    if player:FindFirstChild("leaderstats") then
+                        if player.leaderstats.Bed.Value == "❌" then
+                            teamnobed += 1
+                        end
                     end
                 end
             end
