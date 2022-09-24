@@ -519,18 +519,23 @@ end)
 
 GuiObjects.TabList:GetPropertyChangedSignal("Visible"):Connect(function()
     if GuiObjects.TabList.Visible == true then
-        if #game:GetService("Players"):GetChildren() ~= #GuiObjects.TabList:GetChildren() then
-            for i, v in pairs(GuiObjects.BedWarsUI.TabList:GetChildren()) do
-                if v:IsA("Frame") then
-                    v:Destroy()
-                end
-            end
-            for i, v in ipairs(TeamsService:GetTeams()) do
-                for i2, v2 in pairs(v:GetPlayers()) do
-                    addPlayer(v2)
-                end
+        for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+            if not GuiObjects.TabList:FindFirstChild(v.Name) then
+                addPlayer(v)
             end
         end
+        -- if #game:GetService("Players"):GetChildren() ~= #GuiObjects.TabList:GetChildren() then
+        --     for i, v in pairs(GuiObjects.BedWarsUI.TabList:GetChildren()) do
+        --         if v:IsA("Frame") then
+        --             v:Destroy()
+        --         end
+        --     end
+        --     for i, v in ipairs(TeamsService:GetTeams()) do
+        --         for i2, v2 in pairs(v:GetPlayers()) do
+        --             addPlayer(v2)
+        --         end
+        --     end
+        -- end
     end
 end)
 
