@@ -517,18 +517,28 @@ task.spawn(function() --timer
     end)
 end)
 
+local function removeDupes(tab)
+	local rep = {}
+
+	for index, element in ipairs(tab) do
+		if table.find(rep, element) ~= nil and tonumber(index) ~= nil then
+			table.remove(tab, index)
+		elseif table.find(rep, element) ~= nil then
+			tab[index] = nil
+		else
+			rep[#rep + 1] = tab[index]
+		end
+	end
+
+	return tab
+end
+
 GuiObjects.TabList:GetPropertyChangedSignal("Visible"):Connect(function()
     if GuiObjects.TabList.Visible == true then
         for i, v in pairs(game:GetService("Players"):GetPlayers()) do
             if not GuiObjects.TabList:FindFirstChild(v.Name) then
                 addPlayer(v)
-                for _, val1 in pairs(GuiObjects.TabList:GetChildren()) do
-                    for _, val2 in pairs(GuiObjects.TabList:GetChildren()) do
-                        if val1 == val2 then
-                            val2:Destroy()
-                        end
-                    end
-                end
+                removeDupes(GuiObjects.TabList:GetChildren())
             end
         end
     end
