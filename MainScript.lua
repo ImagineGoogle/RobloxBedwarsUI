@@ -519,7 +519,7 @@ end)
 
 GuiObjects.TabList:GetPropertyChangedSignal("Visible"):Connect(function()
     if GuiObjects.TabList.Visible == true then
-        if #game:GetService("Players") ~= #GuiObjects.TabList:GetChildren() then
+        if #game:GetService("Players"):GetChildren() ~= #GuiObjects.TabList:GetChildren() then
             for i, v in pairs(GuiObjects.BedWarsUI.TabList:GetChildren()) do
                 if v:IsA("Frame") then
                     v:Destroy()
