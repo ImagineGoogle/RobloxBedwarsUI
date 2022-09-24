@@ -66,7 +66,9 @@ local function CreateMainWindow()
     GuiObjects.TabList = TabList
 
     Scoreboard.Name = "Scoreboard"
-    Scoreboard.Parent = BedWarsUI
+    if game.GameId == 6872265039 then
+        Scoreboard.Parent = BedWarsUI
+    end
     Scoreboard.AnchorPoint = Vector2.new(0.99000001, 0.5)
     Scoreboard.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     Scoreboard.BackgroundTransparency = 0.600
