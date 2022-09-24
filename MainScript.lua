@@ -470,41 +470,21 @@ local DateLabel = GuiObjects.BedWarsUI.Scoreboard.MainObjects.GameInfoFrame.Date
 DateLabel.Text = dt:FormatLocalTime("L", "en-us")
 DateLabel.Text = string.sub(DateLabel.Text, 1, string.len(DateLabel.Text) -2)
 
-task.spawn(function()
-    for i, v in ipairs(TeamsService:GetTeams()) do
-        if v.Name ~= "Spectators" and v.Name ~= "Neutral" then
-            CreateTeam(v.Name, v)
-        end
-
-        for i2, v2 in pairs(v:GetPlayers()) do
-            addPlayer(v2)
-        end
+for i, v in ipairs(TeamsService:GetTeams()) do
+    if v.Name ~= "Spectators" and v.Name ~= "Neutral" then
+        CreateTeam(v.Name, v)
     end
-end)
 
--- task.spawn(function() --refresh tablist
---     while true do
---         task.wait(5)
---         if GuiObjects.BedWarsUI.TabList and GuiObjects.BedWarsUI.TabList.Visible == false then
---             for i, v in pairs(GuiObjects.BedWarsUI.TabList:GetChildren()) do
---                 if v:IsA("Frame") then
---                     v:Destroy()
---                 end
---             end
---             for i, v in ipairs(TeamsService:GetTeams()) do
---                 for i2, v2 in pairs(v:GetPlayers()) do
---                     addPlayer(v2)
---                 end
---             end
---         end
---     end
--- end)
+    for i2, v2 in pairs(v:GetPlayers()) do
+        addPlayer(v2)
+    end
+end
 
 task.spawn(function() --timer
 
     pcall(function()
         if not lplr.Character then
-            lplr.CharacterAdded:Wait()
+            repeat task.wait() until lplr.Character
         end
         repeat task.wait() until lplr.Character.PrimaryPart.Position.Y <= 140 or game.Workspace:FindFirstChild("spawn_cage")
 
@@ -538,14 +518,18 @@ task.spawn(function() --timer
 end)
 
 GuiObjects.TabList:GetPropertyChangedSignal("Visible"):Connect(function()
-    for i, v in pairs(GuiObjects.BedWarsUI.TabList:GetChildren()) do
-        if v:IsA("Frame") then
-            v:Destroy()
-        end
-    end
-    for i, v in ipairs(TeamsService:GetTeams()) do
-        for i2, v2 in pairs(v:GetPlayers()) do
-            addPlayer(v2)
+    if GuiObjects.TabList.Visible == true then
+        if #game:GetService("Players") ~= #GuiObjects.TabList:GetChildren() then
+            for i, v in pairs(GuiObjects.BedWarsUI.TabList:GetChildren()) do
+                if v:IsA("Frame") then
+                    v:Destroy()
+                end
+            end
+            for i, v in ipairs(TeamsService:GetTeams()) do
+                for i2, v2 in pairs(v:GetPlayers()) do
+                    addPlayer(v2)
+                end
+            end
         end
     end
 end)
