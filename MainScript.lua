@@ -10,6 +10,10 @@ if game.PlaceId ~= 6872265039 then
     game:GetService("StarterGui"):SetCoreGuiEnabled("PlayerList",  false)
 end
 
+local betterTeamColours = {
+    Green = Color3.fromRGB(129, 253, 99)
+}
+
 local function CreateMainWindow()
 
     local BedWarsUI = Instance.new("ScreenGui")
@@ -245,6 +249,14 @@ local function CreateTeam(name, team)
     OneLetterLabel.TextXAlignment = Enum.TextXAlignment.Left
     OneLetterLabel.LayoutOrder = 1
     --OneLetterLabel.AutomaticSize = Enum.AutomaticSize.X
+
+    --// better team colours
+
+    for i, v in pairs(betterTeamColours) do
+        if name == i then
+            OneLetterLabel.TextColor3 = v
+        end
+    end
 
     Label.Name = "!!!Label"
     Label.Parent = Red
