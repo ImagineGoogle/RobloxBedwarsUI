@@ -67,9 +67,6 @@ local function CreateMainWindow()
 
     Scoreboard.Name = "Scoreboard"
     Scoreboard.Parent = BedWarsUI
-    if game.GameId ~= 6872265039 then
-        Scoreboard.Visible = false
-    end
     Scoreboard.AnchorPoint = Vector2.new(0.99000001, 0.5)
     Scoreboard.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     Scoreboard.BackgroundTransparency = 0.600
@@ -544,19 +541,6 @@ GuiObjects.TabList:GetPropertyChangedSignal("Visible"):Connect(function()
         end
     end
 end)
-
--- game:GetService("Players").PlayerAdded:Connect(function(player)
---     for i, v in pairs(GuiObjects.BedWarsUI.TabList:GetChildren()) do
---         if v:IsA("Frame") then
---             v:Destroy()
---         end
---     end
---     for i, v in ipairs(TeamsService:GetTeams()) do
---         for i2, v2 in pairs(v:GetPlayers()) do
---             addPlayer(v2)
---         end
---     end
--- end)
 
 game:GetService("Players").PlayerRemoving:Connect(function(player)
     removePlayer(player)
